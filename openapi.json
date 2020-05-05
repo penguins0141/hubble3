@@ -1,0 +1,547 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Applications",
+    "description" : "Retrieve a list of applications.  An application may consume or produce a topic or an API.",
+    "version" : "1.0"
+  },
+  "servers" : [ {
+    "url" : "https://localhost:3000",
+    "description" : "applicaitons"
+  } ],
+  "paths" : {
+    "/applications" : {
+      "get" : {
+        "summary" : "Get Applications List",
+        "description" : "Retrieve a list of applications",
+        "operationId" : "get-applications",
+        "parameters" : [ {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "limit=50",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "number"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200"
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : {
+                      "id" : 3,
+                      "name" : "my-app-123",
+                      "business-group" : "IWP",
+                      "business-owners" : "Jane Smith",
+                      "technical-owners" : "John Doe, Mike Jones",
+                      "environments" : "dev, itg, cat",
+                      "tags" : "dev, customer, payments, pii"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "client credentials" : [ ]
+        } ]
+      },
+      "post" : {
+        "summary" : "Create New Application",
+        "description" : "Add an application to the catalog",
+        "operationId" : "post-clients",
+        "requestBody" : {
+          "description" : "New API information returned",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body"
+              },
+              "examples" : {
+                "example-1" : {
+                  "value" : {
+                    "id" : 3,
+                    "name" : "my-app-123",
+                    "source_code_url" : "http://bitbucket.mutualofomaha.com/myrepo",
+                    "start_date" : "02/03/2020",
+                    "end_date" : "",
+                    "business_owners" : "Jane Smith",
+                    "technical_owners" : "John Doe, Mike Jones",
+                    "environments" : "dev, itg, cat",
+                    "tags" : "dev, customer, payments, pii"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "security" : [ {
+          "client credentials" : [ ]
+        } ]
+      }
+    },
+    "/applications/{application_id}" : {
+      "get" : {
+        "summary" : "Get Application",
+        "description" : "Specify the id of the application you want to retrieve",
+        "operationId" : "get-applications-application_id",
+        "parameters" : [ {
+          "name" : "application_id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "application_id",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_1"
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : {
+                      "id" : 3,
+                      "name" : "my-app-123",
+                      "source_code_url" : "http://bitbucket.mutualofomaha.com/myrepo",
+                      "start_date" : "02/03/2020",
+                      "end_date" : "",
+                      "business_owners" : "Jane Smith",
+                      "technical_owners" : "John Doe, Mike Jones",
+                      "environments" : "dev, itg, cat",
+                      "tags" : "dev, customer, payments, pii"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "summary" : "Update Application",
+        "description" : "Updates the entire resource:  this operation will update an application with the values in the request",
+        "operationId" : "put-applications-application_id",
+        "parameters" : [ {
+          "name" : "application_id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "application_id",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "requestBody" : {
+          "description" : "The following request would update the record at the given \"id\" with the values indicated in the PUT request",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body_1"
+              },
+              "examples" : {
+                "example-1" : {
+                  "value" : {
+                    "id" : 3,
+                    "name" : "my-app-123",
+                    "code" : "http://bitbucket.mutualofomaha.com/myrepo",
+                    "business_owners" : "Jane Smith",
+                    "technical_owners" : "John Doe, Mike Jones",
+                    "business_group" : "ITW",
+                    "tags" : "dev, customer, payments, pii"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : { }
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : { }
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : {
+                      "message" : "the application has been updated"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "client credentials" : [ ]
+        } ]
+      },
+      "delete" : {
+        "summary" : "Delete Application",
+        "description" : "Delete an application by application ID",
+        "operationId" : "delete-applications-application_id",
+        "parameters" : [ {
+          "name" : "application_id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "application_id",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "object",
+                  "properties" : { }
+                },
+                "examples" : {
+                  "example-1" : {
+                    "value" : {
+                      "message" : "The client application has been deleted"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "client credentials" : [ ]
+        } ]
+      },
+      "patch" : {
+        "description" : "Updates partial resource:  this operation will update an application with the values in the request",
+        "operationId" : "patch-applications-application_id",
+        "parameters" : [ {
+          "name" : "application_id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/applications/{application_id}/actions/deployments" : {
+      "get" : {
+        "tags" : [ ],
+        "summary" : "Your GET endpoint",
+        "operationId" : "get-applications-application_id-actions-deployments",
+        "parameters" : [ {
+          "name" : "application_id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "application_id",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : { }
+              }
+            },
+            "application/xml" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : { }
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/inline_response_200_2"
+                },
+                "examples" : {
+                  "example-1" : { }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/applications/{application_id}/actions/events" : {
+      "get" : {
+        "tags" : [ ],
+        "summary" : "Your GET endpoint",
+        "operationId" : "get-applications-application_id-actions-events",
+        "parameters" : [ {
+          "name" : "application_id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "application_id",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : { },
+        "security" : [ {
+          "client credentials" : [ ]
+        } ]
+      }
+    },
+    "/applications/{application_id}/actions/apis" : {
+      "get" : {
+        "tags" : [ ],
+        "summary" : "Your GET endpoint",
+        "operationId" : "get-applications-application_id-actions-apis",
+        "parameters" : [ {
+          "name" : "application_id",
+          "in" : "path",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "application_id",
+          "in" : "query",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : { },
+        "security" : [ {
+          "client credentials" : [ ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "inline_response_200" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "business-group" : {
+            "type" : "string"
+          },
+          "business-owner" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "technical-owner" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "code" : {
+            "type" : "string"
+          },
+          "custom-fields" : {
+            "$ref" : "#/components/schemas/inline_response_200_1"
+          }
+        }
+      },
+      "body" : {
+        "required" : [ "business_group", "business_owners", "code", "name", "tags", "technical_owners" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "application name: i.e. my-app-123"
+          },
+          "tags" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "business_group" : {
+            "type" : "string"
+          },
+          "technical_owners" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "business_owners" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "code" : {
+            "type" : "string",
+            "description" : "codebase location (github, bitbucket)"
+          },
+          "custom_fields" : {
+            "type" : "object"
+          }
+        }
+      },
+      "inline_response_200_1" : {
+        "type" : "object",
+        "properties" : {
+          "" : {
+            "type" : "string"
+          }
+        }
+      },
+      "body_1" : {
+        "required" : [ "busines_group", "business_owners", "code", "name", "technical_owners" ],
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "description" : "application name: i.e. my-app-123"
+          },
+          "business_owners" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "technical_owners" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "busines_group" : {
+            "type" : "string"
+          },
+          "code" : {
+            "type" : "string"
+          },
+          "custom_fields" : {
+            "type" : "object"
+          }
+        }
+      },
+      "inline_response_200_2" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "application" : {
+            "type" : "string"
+          },
+          "runtime" : {
+            "type" : "string"
+          },
+          "environment" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "client credentials" : {
+        "type" : "oauth2",
+        "flows" : {
+          "clientCredentials" : {
+            "scopes" : { }
+          }
+        }
+      }
+    }
+  }
+}
